@@ -19,7 +19,7 @@ cd $project_name
 npm init -y
 
 # Install dependencies
-yarn add express cors helmet multer express-async-errors
+yarn add express cors helmet multer express-async-errors express-rate-limit
 yarn add --dev typescript @types/express @types/cors @types/multer ts-node nodemon eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier
 
 # Create tsconfig.json
@@ -123,6 +123,7 @@ cat > src/index.ts <<EOL
 import 'dotenv/config';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
+import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import helmet from 'helmet';
 import { logger } from './logger';
@@ -140,6 +141,14 @@ app.use(helmet());
 
 // JSON data handling
 app.use(express.json());
+
+// Rate limit configuration
+const limiter = rateLimit({
+  windowMs: 1 * 1000, // 1 seconds
+  max: 50,
+  message: "You can't make any more requests at the moment. Try again later",
+});
+app.use(limiter);
 
 // Morgan logging
 app.use(morgan('dev'));
