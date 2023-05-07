@@ -85,7 +85,7 @@ cat > .prettierrc.json <<EOL
 EOL
 
 # Update package.json with the necessary scripts
-npx json -I -f package.json -e "this.scripts={...this.scripts, 'build':'tsc', 'start':'tsc && node dist/index.js','dev':'nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/index.ts','lint':'eslint .','lint:fix':'eslint . --fix','format':'prettier --ignore-path .gitignore --write \"**/*.[jt]s?(on)\"'}"
+npx json -I -f package.json -e "this.scripts={...this.scripts, 'build':'tsc', 'start':'tsc && node dist/index.js','dev':'nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/index.ts','lint:check':'eslint .','lint:fix':'eslint . --fix','format:check':'prettier --ignore-path .gitignore --check \"**/*.[jt]s?(on)\"', 'format:fix':'prettier --ignore-path .gitignore --write \"**/*.[jt]s?(on)\"'}"
 # npx json -I -f package.json -e "this.scripts={...this.scripts, 'build':'tsc', 'start':'tsc && node dist/index.js','dev':'nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/index.ts','lint':'eslint .','lint:fix':'eslint . --fix'}"
 
 
